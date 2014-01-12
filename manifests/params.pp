@@ -13,19 +13,14 @@
 # It may be imported or inherited by other classes
 #
 class duplicity::params {
-
-  ### Application related parameters
+  # ## Application related parameters
 
   $package = $::operatingsystem ? {
     default => 'duplicity',
   }
 
   $config_dir = $::operatingsystem ? {
-    default => '/etc/duplicity',
-  }
-
-  $config_file = $::operatingsystem ? {
-    default => '/etc/duplicity/duplicity.conf',
+    default => '/usr/local/share/duplicity',
   }
 
   $config_file_mode = $::operatingsystem ? {
@@ -40,6 +35,10 @@ class duplicity::params {
     default => 'root',
   }
 
+  $log_dir = $::operatingsystem ? {
+    default => '/var/log/duplicity',
+  }
+
   # General Settings
   $my_class = ''
   $source = ''
@@ -49,7 +48,25 @@ class duplicity::params {
   $options = ''
   $version = 'present'
   $absent = false
+  $puppi = false
+  $puppi_helper = 'standard'
   $audit_only = false
   $noops = false
+  $backups = {
+  }
+
+  # Default values for scheduling
+
+  $minute = '0'
+  $hour = '*'
+  $month = undef
+  $monthday = undef
+  $weekday = undef
+  $special = undef
+
+  $full_if_older_than = '1M'
+  $remove_older_than = undef
+  $remove_all_but_n_full = undef
+  $remove_all_inc_of_but_n_full = undef
 
 }
