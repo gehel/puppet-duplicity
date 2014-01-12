@@ -5,6 +5,9 @@ set -e
 duplicity \
   --name <%= @backup_name %> \
   --full-if-older-than <%= @full_if_older_than %> \
+  <%- if @ssh_key_file -%>
+  --ssh-options -oIdentityFile=<%= @ssh_key_file %> \
+  <%- end -%>
   --log-file <%= @log_file %> \
   <%- @includes.each do |include| -%>
   --include <%= include %> \

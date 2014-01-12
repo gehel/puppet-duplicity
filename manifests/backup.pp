@@ -10,6 +10,7 @@ define duplicity::backup (
   $monthday = $duplicity::monthday,
   $weekday  = $duplicity::weekday,
   $special  = $duplicity::special,
+  $ssh_key_file  = $duplicity::ssh_key_file,
   $full_if_older_than           = $duplicity::full_if_older_than,
   $remove_older_than            = $duplicity::remove_older_than,
   $remove_all_but_n_full        = $duplicity::remove_all_but_n_full,

@@ -63,6 +63,7 @@ class duplicity::params {
   $monthday = undef
   $weekday = undef
   $special = undef
+  $ssh_key_file = undef
 
   $full_if_older_than = '1M'
   $remove_older_than = undef
