@@ -43,6 +43,17 @@ define duplicity::backup (
     audit   => $duplicity::manage_audit,
     noop    => $duplicity::bool_noops,
   } ->
+  file { $log_file:
+    ensure  => $ensure,
+    path    => $log_file,
+    mode    => '0700',
+    owner   => $user,
+    group   => $duplicity::config_file_group,
+    require => Package[$duplicity::package],
+    replace => $duplicity::manage_file_replace,
+    audit   => $duplicity::manage_audit,
+    noop    => $duplicity::bool_noops,
+  } ->
   cron { $resource_name:
     ensure   => $ensure,
     command  => $backup_script,
