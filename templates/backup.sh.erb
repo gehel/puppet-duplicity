@@ -3,7 +3,7 @@
 set -e
 
 <%- if @password -%>
-PASSPHRASE=<%= @password %>
+export PASSPHRASE=<%= @password %>
 <%- end -%>
 
 duplicity \
