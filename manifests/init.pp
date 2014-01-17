@@ -120,6 +120,8 @@ class duplicity (
   $monthday     = params_lookup('monthday'),
   $weekday      = params_lookup('weekday'),
   $special      = params_lookup('special'),
+  $user         = params_lookup('user'),
+  $password     = params_lookup('password'),
   $ssh_key_file = params_lookup('ssh_key_file'),
   $full_if_older_than           = params_lookup('full_if_older_than'),
   $remove_older_than            = params_lookup('remove_older_than'),

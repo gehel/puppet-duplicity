@@ -63,6 +63,8 @@ class duplicity::params {
   $monthday = undef
   $weekday = undef
   $special = undef
+  $user = 'root'
+  $password = ''
   $ssh_key_file = undef
 
   $full_if_older_than = '1M'
