@@ -20,6 +20,8 @@ define duplicity::backup (
   # check input parameters
   validate_string($source_dir)
   validate_string($target_url)
+  validate_string($user)
+  validate_string($password)
   validate_array($includes)
   validate_array($excludes)
 
@@ -32,7 +34,7 @@ define duplicity::backup (
   file { $resource_name:
     ensure  => $ensure,
     path    => $backup_script,
-    mode    => '0775',
+    mode    => '0700',
     owner   => $user,
     group   => $duplicity::config_file_group,
     require => Package[$duplicity::package],
