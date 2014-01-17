@@ -41,7 +41,6 @@ class duplicity::params {
 
   # General Settings
   $my_class = ''
-  $source = ''
   $source_dir = ''
   $source_dir_purge = false
   $template = ''

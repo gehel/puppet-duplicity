@@ -11,6 +11,48 @@ Released under the terms of Apache 2 License.
 
 This module requires the presence of Example42 Puppi module in your modulepath.
 
+## USAGE - Module specific usage
+
+* Install duplicity and configure a backup
+
+        class { 'duplicity':
+          backups => {
+            my_own_backup => {
+              source_dir   => '/some/dir/to/backup',
+              target_url   =>   'scp://my_username@backup.server//path/to/my/backup/dir',
+              user         =>  'my_username',
+              ssh_key_file => '/home/my_username/.ssh/backup_key',
+            }
+          }
+        }
+
+* Install duplicity and configure a backup, another way
+
+        class { 'duplicity':
+        }
+        duplicity::backup { 'my_other_backup':
+          source_dir   => '/some/dir/to/backup',
+          target_url   =>   'scp://my_username@backup.server//path/to/my/backup/dir',
+          user         =>  'my_username',
+          ssh_key_file => '/home/my_username/.ssh/backup_key',
+        }
+
+* Default values can be given at class level
+
+        class { 'duplicity':
+          user         =>  'my_username',
+          ssh_key_file => '/home/my_username/.ssh/backup_key',
+        }
+        duplicity::backup { 'my_other_backup':
+          source_dir   => '/some/dir/to/backup',
+          target_url   =>   'scp://my_username@backup.server//path/to/my/backup/dir',
+        }
+        duplicity::backup { 'still_another_backup':
+          source_dir   => '/some/other/dir/to/backup',
+          target_url   =>   'scp://my_username@backup.server//path/to/my/other/backup/dir',
+        }
+
+
 
 ## USAGE - Basic management
 
@@ -44,12 +86,6 @@ This module requires the presence of Example42 Puppi module in your modulepath.
 
 
 ## USAGE - Overrides and Customizations
-* Use custom sources for main config file 
-
-        class { 'duplicity':
-          source => [ "puppet:///modules/example42/duplicity/duplicity.conf-${hostname}" , "puppet:///modules/example42/duplicity/duplicity.conf" ], 
-        }
-
 
 * Use custom source directory for the whole configuration dir
 

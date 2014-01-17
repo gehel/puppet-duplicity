@@ -13,11 +13,6 @@
 #   If defined, duplicity class will automatically "include $my_class"
 #   Can be defined also by the (top scope) variable $duplicity_myclass
 #
-# [*source*]
-#   Sets the content of source parameter for main configuration file
-#   If defined, duplicity main config file will have the param: source => $source
-#   Can be defined also by the (top scope) variable $duplicity_source
-#
 # [*source_dir*]
 #   If defined, the whole duplicity configuration directory content is retrieved
 #   recursively from the specified source
@@ -99,7 +94,6 @@
 #
 class duplicity (
   $my_class     = params_lookup('my_class'),
-  $source       = params_lookup('source'),
   $source_dir   = params_lookup('source_dir'),
   $source_dir_purge             = params_lookup('source_dir_purge'),
   $template     = params_lookup('template'),
@@ -156,11 +150,6 @@ class duplicity (
   $manage_file_replace = $duplicity::bool_audit_only ? {
     true  => false,
     false => true,
-  }
-
-  $manage_file_source = $duplicity::source ? {
-    ''      => undef,
-    default => $duplicity::source,
   }
 
   $manage_file_content = $duplicity::template ? {
