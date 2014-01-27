@@ -19,6 +19,10 @@ class duplicity::params {
     default => 'duplicity',
   }
 
+  $paramiko_package = $::operatingsystem ? {
+    default => 'python-paramiko',
+  }
+
   $config_dir = $::operatingsystem ? {
     default => '/usr/local/share/duplicity',
   }
@@ -62,9 +66,13 @@ class duplicity::params {
   $monthday = undef
   $weekday = undef
   $special = undef
+
+  # duplicity params
   $user = 'root'
   $password = ''
   $ssh_key_file = undef
+  $install_paramiko = true
+  $paramiko_version = 'present'
 
   $full_if_older_than = '1M'
   $remove_older_than = undef

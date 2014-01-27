@@ -105,6 +105,9 @@ class duplicity (
   $audit_only   = params_lookup('audit_only', 'global'),
   $noops        = params_lookup('noops'),
   $package      = params_lookup('package'),
+  $paramiko_package             = params_lookup('paramiko_package'),
+  $install_paramiko             = params_lookup('install_paramiko'),
+  $paramiko_version             = params_lookup('paramiko_version'),
   $config_dir   = params_lookup('config_dir'),
   $backups      = params_lookup('backups'),
   $log_dir      = params_lookup('log_dir'),
@@ -133,9 +136,16 @@ class duplicity (
 
   # ## Definition of some variables used in the module
   $manage_package = $duplicity::bool_absent ? {
-    true  => 'absent',
-    false => $duplicity::version,
+    true    => 'absent',
+    default => $duplicity::version,
   }
+
+  $manage_paramiko_package = $duplicity::bool_absent ? {
+    true    => 'absent',
+    default => $duplicity::install_paramiko ? {
+      true    => $duplicity::version,
+      default => 'absent',
+    } }
 
   $manage_file = $duplicity::bool_absent ? {
     true    => 'absent',
@@ -143,13 +153,13 @@ class duplicity (
   }
 
   $manage_audit = $duplicity::bool_audit_only ? {
-    true  => 'all',
-    false => undef,
+    true    => 'all',
+    default => undef,
   }
 
   $manage_file_replace = $duplicity::bool_audit_only ? {
-    true  => false,
-    false => true,
+    true    => false,
+    default => true,
   }
 
   $manage_file_content = $duplicity::template ? {
@@ -161,7 +171,12 @@ class duplicity (
   package { $duplicity::package:
     ensure => $duplicity::manage_package,
     noop   => $duplicity::bool_noops,
-  }  
+  }
+
+  package { $duplicity::paramiko_package:
+    ensure => $duplicity::manage_paramiko_package,
+    noop   => $duplicity::bool_noops,
+  }
 
   # The whole duplicity configuration directory can be recursively overriden
   if $duplicity::source_dir {
